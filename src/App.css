@@ -29,8 +29,19 @@
   grid-gap: 15px;
 }
 
-.action-buttons {
+.user-card-action-buttons {
   display: flex;
   justify-content: space-between;
   margin-bottom: 15px;
+}
+
+form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  grid-gap: 8px;
+}
+
+form input, form select {
+  padding: 15px;
 }
