@@ -7,18 +7,27 @@ import { ApiService } from './services/ApiService';
 
 function App() {
   // @TODO luizdebem: componente UserCard
-  const [users, setUsers] = useState({});
+  const [users, setUsers] = useState([]);
+
+  const apiService = new ApiService();
 
   useEffect(() => {
-    console.log('BOm dia');
     fetchUsers();
   }, []);
 
   const fetchUsers = async () => {
-    const res = await new ApiService().getUsers();
+    const res = await apiService.getUsers();
     const users = res.data;
     console.log(users);
     setUsers(users);
+  }
+
+  const handleDelete = async (userId) => {
+    try {
+      await apiService.deleteUserById(userId);
+      const updatedList = users.filter(user => user.id !== userId); 
+      setUsers(updatedList);
+    } catch (err) {}
   }
 
   return (
@@ -31,7 +40,7 @@ function App() {
           {users.map(user => (
             <div className="user-card" key={user.id}>
               <div className="action-buttons">
-                <FontAwesomeIcon icon={faTrashAlt} size="lg"></FontAwesomeIcon>
+                <FontAwesomeIcon onClick={() => handleDelete(user.id)} icon={faTrashAlt} size="lg"></FontAwesomeIcon>
                 <FontAwesomeIcon icon={faPencilAlt} size="lg"></FontAwesomeIcon>
               </div>
               <img src={userPlaceholder} alt="luizdebem" className="profile-picture"></img>
