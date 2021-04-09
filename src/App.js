@@ -3,6 +3,7 @@ import userPlaceholder from './assets/user_placeholder.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { useState, useEffect } from 'react';
+import { ApiService } from './services/ApiService';
 
 function App() {
   // @TODO luizdebem: componente UserCard
@@ -14,8 +15,8 @@ function App() {
   }, []);
 
   const fetchUsers = async () => {
-    const data = await fetch('http://localhost:8080/api/v1/usuarios');
-    const users = await data.json();
+    const res = await new ApiService().getUsers();
+    const users = res.data;
     console.log(users);
     setUsers(users);
   }
