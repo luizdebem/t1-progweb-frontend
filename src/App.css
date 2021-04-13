@@ -45,3 +45,15 @@ form {
 form input, form select {
   padding: 15px;
 }
+
+@media only screen and (max-width: 930px) {
+  .user-list {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media only screen and (max-width: 630px) {
+  .user-list {
+    grid-template-columns: 1fr;
+  }
+}
