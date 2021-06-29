@@ -104,12 +104,20 @@ function App() {
     }
 
     try {
-      isEdit ? await apiService.updateUser(user) : await apiService.postUser(user);
-      const uniqueUsers = users.filter(u => u.id !== user.id);
-      const updatedUsers = [...uniqueUsers, user];
-      setUsers(updatedUsers);
-      setForm(false);
-
+      if (isEdit) {
+        await apiService.updateUser(user);
+        const uniqueUsers = users.filter(u => u.id !== user.id);
+        const updatedUsers = [...uniqueUsers, user].sort((a, b) => a.id - b.id);
+        setUsers(updatedUsers);
+        setForm(false);
+        cleanForm();
+      } else {
+        const res = await apiService.postUser(user);
+        const uniqueUsers = users.filter(u => u.id !== res.data.id);
+        const updatedUsers = [...uniqueUsers, res.data];
+        setUsers(updatedUsers);
+        setForm(false);
+      }
       cleanForm();
     } catch (err) {
       console.log(err);
