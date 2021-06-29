@@ -27,6 +27,7 @@
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: auto;
   grid-gap: 15px;
+  margin: 50px;
 }
 
 .user-card-action-buttons {
